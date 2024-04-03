@@ -1,5 +1,5 @@
 [package]
-name = "timewave-cli"
+name = "cosmos-cli"
 version = "0.1.0"
 authors = ["Steve Degosserie <723552+stiiifff@users.noreply.github.com>"]
 edition = "2021"
