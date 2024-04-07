@@ -1,21 +1,21 @@
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 
 /// Cosmos CLI
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 pub(crate) struct Cli {
-    // /// Optional name to operate on
-    // name: Option<String>,
-
-    // /// Sets a custom config file
-    // #[arg(short, long, value_name = "FILE")]
-    // config: Option<PathBuf>,
-
-    // /// Turn debugging information on
-    // #[arg(short, long, action = clap::ArgAction::Count)]
-    // debug: u8,
     #[command(subcommand)]
     pub command: Commands,
+
+    /// Output format
+    #[arg(short, long, default_value = "plain")]
+    pub output: OutputFormat,
+}
+
+#[derive(ValueEnum, Clone)]
+pub enum OutputFormat {
+    Plain,
+    Json,
 }
 
 #[derive(Subcommand)]
@@ -40,6 +40,10 @@ pub(crate) enum InfoSubcommand {
         /// The chain ID
         chain_id: String,
     },
+    Path {
+        chain_a: String,
+        chain_b: String,
+    },
 }
 
 /// List resources in the Cosmos ecosystem
@@ -47,4 +51,11 @@ pub(crate) enum InfoSubcommand {
 pub(crate) enum ListSubcommand {
     /// List all chains in the Cosmos ecosystem
     Chains,
+    /// List assets for a specific chain in the Cosmos ecosystem
+    Assets {
+        /// The chain ID
+        chain_id: String,
+    },
+    /// List all IBC paths in the Cosmos ecosystem
+    Paths,
 }
