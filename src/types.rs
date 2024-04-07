@@ -40,10 +40,18 @@ pub(crate) enum InfoSubcommand {
         /// The chain ID
         chain_id: String,
     },
-    Path {
-        chain_a: String,
-        chain_b: String,
+    /// Get information about all assets of a specific chain in the Cosmos ecosystem
+    Assets {
+        /// The chain ID
+        chain_id: String,
     },
+    /// Get information about a specific asset of a specific chain in the Cosmos ecosystem
+    Asset {
+        chain_id: String,
+        asset_name: String,
+    },
+    /// Get information about all IBC paths in the Cosmos ecosystem
+    Path { chain_a: String, chain_b: String },
 }
 
 /// List resources in the Cosmos ecosystem

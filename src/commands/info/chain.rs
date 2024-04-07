@@ -7,9 +7,6 @@ use crate::context::Context;
 // Inspired by https://github.com/PeggyJV/chain-registry
 
 #[derive(Clone, Debug, Default, Deserialize, PartialEq, Serialize)]
-// by denying unknown fields we can be more confident that our structs match the
-// current configured GIT_REF's schema. errors will occur if the chain.json is
-// formatted incorrectly, however.
 #[serde(default)]
 pub struct ChainInfo {
     #[serde(rename = "$schema")]
