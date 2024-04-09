@@ -24,7 +24,9 @@ async fn main() -> Result<(), Error> {
     let output: String = match cli.output {
         OutputFormat::Json => res.to_string(),
         OutputFormat::Plain => match cli.command {
-            Commands::Info { .. } => json_to_table(&res).collapse().to_string(),
+            Commands::Info { .. } | Commands::Astroport { .. } => {
+                json_to_table(&res).collapse().to_string()
+            }
             Commands::List { .. } => scalar_to_plain(res),
         },
     };
