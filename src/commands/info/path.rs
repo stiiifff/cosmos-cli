@@ -45,8 +45,10 @@ pub struct ChannelPort {
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(default, rename_all = "snake_case")]
 pub struct Tags {
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub dex: String,
     pub preferred: bool,
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub properties: String,
     pub status: String,
 }

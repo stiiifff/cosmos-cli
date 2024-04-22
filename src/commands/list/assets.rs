@@ -16,10 +16,10 @@ impl Display for Asset {
 }
 
 pub(crate) async fn execute(_ctx: &Context, chain_id: &str) -> Result<Value, anyhow::Error> {
-    list_chain_assets(_ctx, chain_id).await
+    Ok(list_chain_assets(_ctx, chain_id).await?.into())
 }
 
-async fn list_chain_assets(ctx: &Context, chain_id: &str) -> Result<Value, anyhow::Error> {
+async fn list_chain_assets(ctx: &Context, chain_id: &str) -> Result<Vec<String>, anyhow::Error> {
     let mut json: Value = ctx
         .api_get(&format!(
             "https://chains.cosmos.directory/{}/assetlist",
@@ -29,5 +29,5 @@ async fn list_chain_assets(ctx: &Context, chain_id: &str) -> Result<Value, anyho
     let assets_obj = json["assets"].take();
     let assets: Vec<Asset> = serde_json::from_value(assets_obj).unwrap_or_default();
     let asset_names: Vec<String> = assets.into_iter().map(|x| x.symbol).collect();
-    Ok(serde_json::to_value(asset_names)?)
+    Ok(asset_names)
 }

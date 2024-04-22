@@ -30,6 +30,11 @@ pub(crate) enum Commands {
         #[command(subcommand)]
         subcmd: ListSubcommand,
     },
+    /// Get information about Astroport resources
+    Astroport {
+        #[command(subcommand)]
+        subcmd: AstroportSubcommand,
+    },
 }
 
 /// Get information about resources in the Cosmos ecosystem
@@ -66,4 +71,27 @@ pub(crate) enum ListSubcommand {
     },
     /// List all IBC paths in the Cosmos ecosystem
     Paths,
+}
+
+/// Get information about Astroport resources
+#[derive(Subcommand)]
+pub(crate) enum AstroportSubcommand {
+    /// List native tokens on Astroport
+    NativeTokens,
+    /// List pairs on Astroport
+    Pairs,
+    /// Get information about a specific pair on Astroport
+    Pair {
+        /// Asset 1 denom
+        asset1_denom: String,
+        /// Asset 2 denom
+        asset2_denom: String,
+    },
+    /// Get information about a specific pool on Astroport
+    Pool {
+        /// Asset 1 denom
+        asset1_denom: String,
+        /// Asset 2 denom
+        asset2_denom: String,
+    },
 }
