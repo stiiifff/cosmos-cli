@@ -1,3 +1,4 @@
+use log::error;
 use serde_json::Value;
 
 pub(crate) fn scalar_to_plain(value: Value) -> String {
@@ -11,6 +12,9 @@ pub(crate) fn scalar_to_plain(value: Value) -> String {
         Value::Bool(b) => b.to_string(),
         Value::Null => "".to_string(),
         // This function is only for scalar values
-        Value::Object(_) => unimplemented!("Unsupported value type"),
+        Value::Object(x) => {
+            error!("Unexpected object: {:?}", x);
+            unimplemented!("Unsupported value type");
+        }
     }
 }

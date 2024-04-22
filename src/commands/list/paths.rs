@@ -15,10 +15,10 @@ pub struct Content {
 }
 
 pub(crate) async fn execute(_ctx: &Context) -> Result<Value, anyhow::Error> {
-    list_paths(_ctx).await
+    Ok(list_paths(_ctx).await?.into())
 }
 
-async fn list_paths(ctx: &Context) -> Result<Value, anyhow::Error> {
+async fn list_paths(ctx: &Context) -> Result<Vec<String>, anyhow::Error> {
     let url = format!("{}/_IBC?ref={}", REPO_URL, GIT_REF,);
     let json: Value = ctx.api_get(&url).await?;
     let contents: Vec<Content> = serde_json::from_value(json).unwrap_or_default();

@@ -171,14 +171,14 @@ pub struct Explorer {
 }
 
 pub(crate) async fn execute(ctx: &Context, chain_id: &str) -> Result<Value, Error> {
-    get_chain_info(ctx, chain_id).await
+    Ok(serde_json::to_value(get_chain_info(ctx, chain_id).await?)?)
 }
 
-async fn get_chain_info(ctx: &Context, chain_id: &str) -> Result<Value, Error> {
+async fn get_chain_info(ctx: &Context, chain_id: &str) -> Result<ChainInfo, Error> {
     let mut json: Value = ctx
         .api_get(&format!("https://chains.cosmos.directory/{}", chain_id))
         .await?;
     let achain_obj = json["chain"].take();
     let chain: ChainInfo = serde_json::from_value(achain_obj).unwrap_or_default();
-    Ok(serde_json::to_value(chain)?)
+    Ok(chain)
 }
