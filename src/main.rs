@@ -24,14 +24,11 @@ async fn main() -> Result<(), Error> {
     let output: String = match cli.output {
         OutputFormat::Json => res.to_string(),
         OutputFormat::Plain => match cli.command {
-            Commands::Info { .. }
+            Commands::List { .. }
             | Commands::Astroport {
-                subcmd:
-                    AstroportSubcommand::NativeTokens { .. }
-                    | AstroportSubcommand::Pair { .. }
-                    | AstroportSubcommand::Pool { .. },
-            } => json_to_table(&res).collapse().to_string(),
-            Commands::List { .. } | Commands::Astroport { .. } => scalar_to_plain(res),
+                subcmd: AstroportSubcommand::Pairs { .. },
+            } => scalar_to_plain(res),
+            _ => json_to_table(&res).collapse().to_string(),
         },
     };
     println!("{}", output);
