@@ -8,7 +8,7 @@ pub(crate) struct Cli {
     pub command: Commands,
 
     /// Output format
-    #[arg(short, long, default_value = "plain")]
+    #[arg(global=true, short, long, default_value = "plain")]
     pub output: OutputFormat,
 }
 
