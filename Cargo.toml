@@ -1,7 +1,12 @@
 [package]
 name = "cosmos-cli"
-version = "0.1.0"
+description = "A simple CLI tool to get information about resources in the Cosmos network."
+license = "Apache-2.0"
 authors = ["Steve Degosserie <723552+stiiifff@users.noreply.github.com>"]
+readme = "README.md"
+documentation = "https://github.com/stiiifff/cosmos-cli/blob/master/README.md#available-subcommands"
+repository = "https://github.com/stiiifff/cosmos-cli"
+version = "0.1.0"
 edition = "2021"
 
 [dependencies]
